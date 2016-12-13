@@ -1,0 +1,36 @@
+Anyone coming here looking for the
+
+MD5 or SHA1 for the YouTube OAuthAPI this is the command:
+
+Windows Vista: C:\Users\<user>\.android\debug.keystore
+
+Windows XP: C:\Documents and Settings\<user>\.android\debug.keystore
+
+OS X and Linux: ~/.android/debug.keystore
+
+This cmd:
+
+keytool -exportcert -alias androiddebugkey -keystore debug.keystore -list -v
+
+The default password for the debug.keystore is android
+
+Taken from 
+
+---------------------------------------------------------------------------------------------------------
+
+Tu clave es:
+
+0MbHOPzIVkD_3cwrWUgclDJka7kXKCb13V2iJGA
+
+Esta clave es v?lida para todas las aplicaciones firmadas con el certificado cuya huella dactilar es:
+
+07:F7:67:77:77:8D:3E:CA:54:46:4E:BF:3C:C6:BA:30
+
+Incluimos un dise?o xml de ejemplo para que puedas iniciarte en los secretos de la creaci?n de mapas:
+
+              <com.google.android.maps.MapView
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:apiKey="0MbHOPzIVkD_3cwrWUgclDJka7kXKCb13V2iJGA"
+                 />
+            

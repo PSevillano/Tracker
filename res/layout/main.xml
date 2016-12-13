@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" 
+    android:background="@drawable/background">
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button1" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/dark_red"
+        android:text="Button2"
+        android:textSize="20sp"
+        android:typeface="monospace" />
+    
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:id="@android:id/tabhost" 
+	android:paddingTop="@dimen/tab_space_top"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
+	<RelativeLayout android:id="@+id/tab_relative_layout"
+		android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<TabWidget android:id="@android:id/tabs"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"></TabWidget>
+		<FrameLayout android:id="@android:id/tabcontent"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:layout_below="@android:id/tabs"></FrameLayout>
+	</RelativeLayout>
+</TabHost>
+
+<!-- android:tabStripLeft="@drawable/tab_bottom_left"-->
+<!-- android:tabStripRight="@drawable/tab_bottom_right"-->
+
+</LinearLayout>

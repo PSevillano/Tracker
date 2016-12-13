@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.stx_downhill_tracker" 
+	android:versionCode="1"
+	android:versionName="1.0">
+	 
+ <!-- AFEGIM AQUESTA LINIA PER TEMES DE GOOGLE PLAY  -->
+ <!--  AQUESTA MERDA FA PETAR LA VERSION 4.0 Android  :: android:targetSdkVersion="15" -->
+ 
+<uses-sdk android:minSdkVersion="8" />
+
+<supports-screens 
+            android:largeScreens="true"
+            android:normalScreens="true" 
+            android:smallScreens="true"
+            android:anyDensity="true" />
+    
+    
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- AFEGIM AQUESTA LINIA D'AQUI ABAIX PER TEMES DE PERMISOS  -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+ 
+    
+	<application android:icon="@drawable/tracking_record_0_dis" android:label="@string/app_name" android:theme="@style/MyLightTheme">
+		
+		<uses-library android:name="com.google.android.maps" />
+		
+		<!-- GAMES :: SPLASH  -->
+		<activity android:name="gfx_main.logo_Activity" android:label="@string/app_name" android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" /> 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+		<!-- GAMES :: CARGA MENU  -->
+        <activity android:name="gfx_main.progressbar_menu_Activity" android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <category android:name="android.intent.category.VIEW" />
+            </intent-filter>
+      
+        </activity>
+        
+        <!-- GAMES :: CARGA GAME  -->
+        <activity android:name="gfx_main.progressbar_game_Activity" android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <category android:name="android.intent.category.VIEW" />
+            </intent-filter>
+        </activity>
+        
+        <!-- GAMES :: CARGA OPTIONS  -->
+        <activity android:name="gfx_main.progressbar_option_Activity" android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <category android:name="android.intent.category.VIEW" />
+            </intent-filter>
+        </activity>
+		
+		<activity android:name="stx_main.progressbar_menu_Activity" android:label="@string/app_name" android:screenOrientation="portrait">
+			<intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+                <category android:name="android.intent.category.VIEW" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:name="stx_main.MockActivity" android:screenOrientation="portrait">
+		    
+		</activity>
+		
+		<activity android:name="stx_main.progressbar_maps_Activity" android:screenOrientation="portrait" >
+		    
+		</activity>
+		
+	
+	    <activity android:name="com.google.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation" />
+	    <activity android:name="stx_main.showData" android:screenOrientation="portrait" />
+         
+    </application>
+
+</manifest> 
+
+

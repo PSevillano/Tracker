@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Downhill Tracker</string>
+	<string name="mock">This is just a mock activity.</string>
+	<string name="tab_1">First</string>
+	<string name="tab_2">Second</string>
+	<string name="tab_3">Third</string>
+	<string name="tab_4">Exit</string>
+	<string name="mock2">This is  mock 2</string>
+	<string name="total_distance">0m</string>
+</resources>
