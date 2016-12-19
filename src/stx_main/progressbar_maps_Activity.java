@@ -65,7 +65,9 @@ public class progressbar_maps_Activity extends MapActivity implements SensorEven
 	
 	// variables de la brujula
 	 public float currentDegree = 0f;
+	 public double x,y,z;
 	 public SensorManager mSensorManager;
+	 public SensorManager mSensorACC;
 	 private ImageView image;
 
    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -77,6 +79,7 @@ public class progressbar_maps_Activity extends MapActivity implements SensorEven
    // Icono de inicio de recorrido
    private  Drawable icon_new_geopoint;//texturas
    private  Drawable icon_new_checkpoint;
+   private  Drawable icon_new_jump;
    
    private Handler handler = new Handler();
    private Runnable refreshTask = new Runnable()
@@ -107,6 +110,9 @@ public class progressbar_maps_Activity extends MapActivity implements SensorEven
       mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
       mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),SensorManager.SENSOR_DELAY_GAME);
       
+      mSensorACC = (SensorManager) getSystemService(SENSOR_SERVICE);
+      mSensorACC.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
+      
       //stx_commons.appStatus = (TextView)findViewById(R.id.textViewMap);
       image = (ImageView)findViewById(R.id.minibrujula);
       // Images init
@@ -117,6 +123,7 @@ public class progressbar_maps_Activity extends MapActivity implements SensorEven
 	  // Icono GEO i CHECK
       icon_new_geopoint = getResources().getDrawable(R.drawable.pin_point);
 	  icon_new_checkpoint = getResources().getDrawable(R.drawable.pin_check);
+	  icon_new_jump = getResources().getDrawable(R.drawable.icon_jump);
 	  
 	  icon_new_geopoint.setBounds(0, 0, icon_new_geopoint.getIntrinsicWidth(), icon_new_geopoint.getIntrinsicHeight());//tamaño
 	  icon_new_checkpoint.setBounds(0, 0, icon_new_checkpoint.getIntrinsicWidth(), icon_new_checkpoint.getIntrinsicHeight());
@@ -270,9 +277,10 @@ public class progressbar_maps_Activity extends MapActivity implements SensorEven
 									 if (distance_beetween_two_points>=stx_commons.distance_beetween_track_points)
 									 {
 										 
-										 // +++ A�ade a la lista de puntos en tracking visible
-										 stx_commons.geoPointsArray.add(new_Geopoint);
-										 
+										 // +++ A�ade a la lista de puntos en tracking visible//////////////////////////////////////
+										 geoPosition geoPosition = new geoPosition(x,y,z,currentDegree,new_Geopoint);
+										 stx_commons.geoPoints_info.add(new geoPosition(new_Geopoint));
+										 //////////////////////////////////////////////////////////////////////////////////////////////
 										 // ***********
 										 // LINEAS
 										 // ***********								
@@ -319,7 +327,7 @@ public class progressbar_maps_Activity extends MapActivity implements SensorEven
 							    }
 								else
 								{			
-									 stx_commons.geoPointsArray.add(new_Geopoint);
+									 stx_commons.geoPoints_info.add(new geoPosition(new_Geopoint));//Me da un error y no se porque///////////////////////////////
 									 // Es nuestro primer geopoint de la captura
 									 MarkerOnTrackOverlay marker = new MarkerOnTrackOverlay(new_Geopoint,progressbar_maps_Activity.this,R.drawable.pin_start,14);
 									 mapView.getOverlays().add(marker);
@@ -380,23 +388,46 @@ public void onSensorChanged(SensorEvent event) {
 	  float degree = Math.round(event.values[0]);
 	  
 	  
-	  RotateAnimation ra = new RotateAnimation(currentDegree,-degree,Animation.RELATIVE_TO_SELF, 0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
+	 
+	if(event.sensor.getType()==mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION).getType()){
+		 RotateAnimation ra = new RotateAnimation(currentDegree,-degree,Animation.RELATIVE_TO_SELF, 0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
 
-	 // how long the animation will take place
-	  ra.setDuration(210);
-		
-	  // set the animation after the end of the reservation status
-	  ra.setFillAfter(true);
+		 // how long the animation will take place
+		  ra.setDuration(210);
 			
-	  // Start the animation
-	  image.startAnimation(ra);
-	  currentDegree = -degree;
+		  // set the animation after the end of the reservation status
+		  ra.setFillAfter(true);
+				
+		  // Start the animation
+		  image.startAnimation(ra);
+		  currentDegree = -degree;
+		 
+		  
+	}else if(event.sensor.getType()==mSensorACC.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getType()){
+		
+		x=event.values[0];
+		y=event.values[1];
+		z=event.values[2];
+
 	
+		
+		if((Math.sqrt((x*x)+(y*y)+(z*z))/SensorManager.GRAVITY_EARTH)>5){
+			double forceG = Math.sqrt((x*x)+(y*y)+(z*z))/SensorManager.GRAVITY_EARTH;
+			Location location = stx_GPS.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			GeoPoint geoJump = new GeoPoint((int) (location.getLatitude() * 1E6), (int) (location.getLongitude() * 1E6));
+			geoPosition geoPosition = new geoPosition(x,y,z,forceG,currentDegree,geoJump);
+			 stx_commons.geoPoints_info.add(geoPosition);
+			 
+			 MarkerOnTrackOverlay jump = new MarkerOnTrackOverlay(geoPosition.geoPoint,progressbar_maps_Activity.this,R.drawable.icon_jump,14);
+			 mapView.getOverlays().add(jump);
+			 mapView.invalidate();
+
+		}
+	}
 }
 
 public void onAccuracyChanged(Sensor sensor, int accuracy) {
 	// TODO Auto-generated method stub
-	
 }
 
 

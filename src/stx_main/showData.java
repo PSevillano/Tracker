@@ -23,10 +23,10 @@ public class showData extends Activity{
 		
 		String lat,lon;
 		
-		for(int i=0; i<stx_commons.geoPointsArray.size();i++){
+		for(int i=0; i<stx_commons.geoPoints_info.size();i++){
 			TextView txt = new TextView(this);
-			lat=String.valueOf(stx_commons.geoPointsArray.get(i).getLatitudeE6());
-			lon=String.valueOf(stx_commons.geoPointsArray.get(i).getLongitudeE6());
+			lat=String.valueOf(stx_commons.geoPoints_info.get(i).geoPoint.getLatitudeE6());
+			lon=String.valueOf(stx_commons.geoPoints_info.get(i).geoPoint.getLongitudeE6());
 			
 			
 			txt.setText("Latitud: "+lat+", Longitud: "+lon);

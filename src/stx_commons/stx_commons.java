@@ -3,6 +3,8 @@ package stx_commons;
 import java.util.ArrayList;
 import java.util.List;
 
+import stx_main.geoPosition;
+
 import android.content.Context;
 import android.location.Location;
 import android.view.Gravity;
@@ -13,7 +15,8 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.Projection;
 
 public class stx_commons {
-	public static ArrayList<GeoPoint> geoPointsArray = new ArrayList<GeoPoint>();
+	//public static ArrayList<GeoPoint> geoPointsArray = new ArrayList<GeoPoint>();
+	public static ArrayList<geoPosition> geoPoints_info = new ArrayList<geoPosition>();
 	public static ArrayList<GeoPoint> checkPointsArray = new ArrayList<GeoPoint>();
 	public static Projection projection;
 	
